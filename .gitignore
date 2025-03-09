@@ -20,4 +20,4 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST 
+MANIFEST .DS_Store
