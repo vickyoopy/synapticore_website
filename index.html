@@ -323,6 +323,7 @@
             border: none;
             color: var(--text-color);
             font-size: 1.5em;
+            z-index: 101;
         }
         
         /* Section Styles */
@@ -747,11 +748,52 @@
         
         @media screen and (max-width: 768px) {
             .nav-links {
-                display: none;
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: var(--card-bg);
+                padding: 80px 30px 30px;
+                gap: 20px;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+                align-items: flex-start;
+                z-index: 99;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-link {
+                height: auto;
+                padding: 10px 0;
+                font-size: 18px;
             }
             
             .mobile-menu-btn {
                 display: block;
+            }
+            
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 98;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            
+            .overlay.active {
+                display: block;
+                opacity: 1;
             }
             
             .service-card {
@@ -888,6 +930,7 @@
             </button>
         </div>
     </nav>
+    <div class="overlay"></div>
     
     <!-- Header/Hero Section -->
     <header>
@@ -1171,6 +1214,11 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
+                
+                // Close mobile menu if open
+                if (document.querySelector('.nav-links').classList.contains('active')) {
+                    toggleMobileMenu();
+                }
             });
         });
         
@@ -1183,6 +1231,29 @@
                 nav.classList.remove('scrolled');
             }
         });
+        
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const overlay = document.querySelector('.overlay');
+        
+        function toggleMobileMenu() {
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Change hamburger icon to X when menu is open
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+        
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        overlay.addEventListener('click', toggleMobileMenu);
     </script>
 </body>
 </html> 
