@@ -1,11 +1,33 @@
+# Virtual environment
 .venv/
-node_modules/
+venv/
+env/
+
+# Python cache
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.DS_Store
+*.pyc
+*.pyo
+*.pyd
 .Python
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Log files
+*.log
+
+node_modules/
 build/
 develop-eggs/
 dist/
